@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Serverless - BANode 2017</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+			.reveal a img, .reveal section img{border:none;box-shadow:none;background:none;}
+			.reveal .small {
+			font-size: 60%;
+			}
+			.left {
+				left:-16%;
+				text-align: left;
+				float: left;
+				width:50%;
+				z-index:-10;
+				position: relative;
+			}
+			.right {
+			    left: 18%;
+			    top: 75px;
+			    float: right;
+			    text-align: right;
+			    z-index: -10;
+			    width: 40%;
+			    position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section> <!-- data-background-image="img/serverless.png" -->
+					<h2>Arquitecturas basadas en funciones usando <img src="img/serverless-logo.png" alt="Serverless" style="vertical-align: middle"/></h2>
+					<p> &nbsp;</p>
+					<p class="small" style="float:left">
+						<img src="img/peter.png" style="float:left;border:0;box-shadow:none;background: none"/>
+						<p class="small" style="padding: 20px 0;float: left;">Ezequiel Gonzalez Rial<br> <a href="https://twitter.com/gonrial" target="_blank">@gonrial</a></p>
+					</p>
+					<p class="small" style="float:right"><img src="img/logo_banode.png" style="border:0;box-shadow:none;background: none"/><br/>
+						<a href="https://github.com/banodejs/miembros" target="_blank">BA Node GitHub</a> - <a href="https://nodeconf.com.ar/" target="_blank">NodeConf Argentina</a>
+					</p>					
+				</section>
+				<section>
+					<h2>¿Qué es Serverless?</h2>
+					<div class="fragment">
+					<img src="img/1jb1jv.jpg" style="border: none;">
+					</div>
+				</section>
+				<section>
+					<h2>Esperen ... no tan rápido</h2>
+					<img src="img/trash.png">
+				</section>
+				<section>
+					<h2>Evolución</h2>
+					<ul style="text-align: center;">
+						<li class="fragment small" style="height:420px;color:#333;width:250px;vertical-align:middle;background: url(img/evolution_physical.jpg);display: table-cell"><p>Servidores Físicos<br>(Horas)</p></li>
+						<li class="fragment small" style="height:420px;color:#333;width:205px;vertical-align:middle;background: url(img/evolution_virtual.jpg);display: table-cell"><p>Máquinas Virtuales<br>(Minutos)</p></li>
+						<li class="fragment small" style="height:420px;color:#333;width:214px;vertical-align:middle;background: url(img/evolution_containers.jpg);display: table-cell"><p>Contenedores<br>(Minutos)</p></li>
+						<li class="fragment small" style="height:420px;color:#333;width:193px;vertical-align:middle;background: url(img/evolution_lambda.jpg);display: table-cell"><p>Funciones como Servicios<br>(Milisegundos)</p></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Beneficios</h2>
+					<ul>
+						<li class="fragment">Simplificación</li>
+						<li class="fragment">Auto-escalable</li>
+						<li class="fragment">Se dispara por Eventos</li>
+						<li class="fragment">NoOps</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Contras</h2>
+					<ul>
+						<li class="fragment"><strike>NoOps</strike> LessOps</li>
+						<li class="fragment">No es eficiente para aplicaciones de larga duración.</li>
+						<li class="fragment">Existe una PaaS por debajo al que no controlamos.</li>
+						<li class="fragment">La comunicación interprocesos tiene que planificarse.</li>
+						<li class="fragment">"Arranque en frío" (especialmente JVM)</li>
+						<li class="fragment">¿Pruebas locales?</li>
+					</ul>
+				</section>
+				<section>
+					<div style="padding-bottom: 25px">
+						<figure style="max-width: 250px;text-align: center;display: inline-block;vertical-align: middle;">
+							<a href="https://aws.amazon.com/lambda/" class="small">
+							<img src="img/aws_lambda.png" alt="AWS Lambda">
+							<figcaption>AWS Lambda</figcaption>
+							</a>
+						</figure>
+
+						<figure style="max-width: 250px;text-align: center;display:inline-block;vertical-align: middle;">
+							<a href="https://cloud.google.com/functions/docs/" class="small">
+							<img src="img/google_functions.png" alt="Google Cloud Functions"/>
+							<figcaption>Google Cloud Functions</figcaption>
+							</a>
+						</figure>
+						<figure style="max-width: 250px;text-align: center;display:inline-block;vertical-align: middle;">
+							<a href="https://azure.microsoft.com/en-us/services/functions/" class="small">
+							<img src="img/azure_functions.png" alt="Microsoft Azure Functions">
+							<figcaption>Microsoft Azure Functions</figcaption>
+							</a>
+						</figure>
+						<figure style="max-width: 250px;text-align: center;display:inline-block;vertical-align: middle;">
+							<a href="https://github.com/openwhisk/openwhisk" class="small">
+							<img src="img/openwhisk.png" alt="IBM OpenWhisk">
+							<figcaption>IBM OpenWhisk</figcaption>
+							</a>
+						</figure>
+					</div>
+					<h2>Proveedores</h2>
+					<div style="clear:both;padding-top: 25px">
+					<figure style="max-width: 250px;text-align: center;display:inline-block; margin: 0 15px;vertical-align: middle;">
+						<a href="https://webtask.io/about" class="small">
+						<figcaption>Auth0 Webtask</figcaption>
+						<img src="img/auth0_webtask.png" alt="Auth0 Webtask">
+						</a>
+					</figure>
+					<figure style="max-width: 250px;text-align: center;display:inline-block; margin: 0 15px;vertical-align: middle;">
+						<a href="https://github.com/iron-io/functions" class="small">
+						<figcaption>Iron.io Functions</figcaption>
+						<img src="img/ironio_functions.png" alt="Iron.io Functions">
+						</a>
+					</figure>
+					<figure style="max-width: 250px;text-align: center;display:inline-block; margin: 0 15px;vertical-align: middle;">
+						<a href="https://github.com/openstack/picasso" class="small">
+						<figcaption>OpenStack Picasso</figcaption>
+						<img src="img/openstack_picasso.png" alt="OpenStack Picasso">
+						</a>
+					</figure>
+					<figure style="max-width: 250px;text-align: center;display:inline-block; margin: 0 15px;vertical-align: middle;">
+						<a href="https://github.com/fission/fission" class="small">
+						<figcaption>Kubernetes Fission</figcaption>
+						<img src="img/kubernetes_fission.png" alt="Kubernetes Fission">
+						</a>
+					</figure>
+					</div>
+					
+				</section>
+				<section>
+					<h2>Herramientas</h2>
+					<ul>
+						<li class="fragment"><a href="https://github.com/motdotla/node-lambda">node-lambda</a></li>
+						<li class="fragment"><a href="http://apex.run/">Apex</a></li>
+						<li class="fragment"><a href="https://claudiajs.com/">ClaudiaJS</a></li>
+						<li class="fragment"><a href="https://serverless.com/">Serverless Framework</a></li>
+					</ul>
+				</section>
+				<section data-background-image="img/minions.png" data-background-position="bottom" data-background-size="100%">
+					<a href="https://serverless.com">
+						<img src="img/serverless_logo.png" alt="Serverlesss"/>
+					</a>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<!--img src="img/minions.png"/-->
+				</section>
+
+				<section data-background-image="img/awesome-sause.jpg">
+					<h2 style="display:none">Serverless</h2>
+				</section>
+
+				<section>
+					<h2>Un YML para controlarlos a todos</h2>
+					<pre><code data-trim data-noescape>
+					service: users
+					provider:
+					  name: aws
+					  runtime: nodejs4.3
+					  stage: dev # Set the default stage used. Default is dev
+
+					functions:
+					  users:
+					    handler: users.handler
+					    events:
+					      - s3:
+					          bucket: photos
+					          event: s3:ObjectCreated:*
+					          rules:
+					            - prefix: uploads/
+					</code></pre>
+				</section>
+
+				<!-- section data-background-image="img/gears-1666499_1280.jpg" -->
+				<section data-background-image="img/minions2.png">
+					<h2 style="position: relative;left:-280px">Serverless</h2>
+					<ul class="left fragment">
+						<li>Permite testear localmente</li>
+						<li>Permite analizar logs</li>
+						<li>Comprime la función y todas sus dependencias</li>
+						<li>Sube el zip a S3</li>
+					</ul>
+					<ul class="right fragment">
+						<li>Crea cada Lambda</li>
+						<li>Crea credenciales y permisos para cada recurso</li>
+						<li>Registra las rutas en el API Gateway</li>
+					</ul>
+				</section>
+
+				<section data-background-image="img/pexels-photo-230521.jpeg">
+					<h2 style="color:#333">Conclusiones</h2>
+				</section>
+
+				<section data-background-image="img/microphone.png">
+					<div style="float:left;width: 400px;">
+						<h2>¿Preguntas?</h2>
+						<p style="padding: 20px 0;float: left;">Ezequiel Gonzalez Rial<br>
+							<a href="https://twitter.com/gonrial" target="_blank">@gonrial</a> - 
+							<a href="https://github.com/gonrial" target="_blank">
+							<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 438.549 438.549" style="fill: #13DAEC;vertical-align: middle;"><path d="M409 114.6c-19.5-33.6-46-60.2-79.7-79.8-33.6-19.6-70.2-29.4-110-29.4s-76.5 9.8-110 29.4C75.5 54.4 49 81 29.2 114.6 10 148.2 0 185 0 224.6c0 47.8 14 90.8 41.8 129 28 38 64 64.5 108 79.2 5.2 1 9 .2 11.5-2 2.5-2.3 3.7-5.2 3.7-8.6v-15.4l-.3-25.4-6.5 1c-4.2 1-9.5 1.2-16 1-6.3 0-13-.6-19.7-2-7-1-13.3-4-19.2-8.4-6-4.5-10-10.4-12.5-17.6l-3-6.6c-1.8-4.3-4.8-9.2-9-14.5-4-5.4-8-9-12.3-11l-2-1.3c-1.3-1-2.5-2-3.7-3.4-1-1.4-2-2.7-2.6-4-.5-1.4 0-2.5 1.5-3.3 1.5-1 4.3-1.3 8.2-1.3l5.7 1c3.8.6 8.5 3 14 6.7 5.7 3.8 10.3 8.8 14 15 4.3 7.7 9.6 13.6 15.8 17.7 6.2 4 12.4 6 18.7 6 6.3 0 11.7-.3 16.3-1.3 4.5-.8 8.8-2.3 12.8-4.2 1.7-12.7 6.4-22.5 14-29.4-11-1-20.6-2.8-29.3-5-8.6-2.4-17.6-6-26.8-11.3-9.2-5-17-11.4-23-19s-11-17.6-15-30c-4-12.3-5.8-26.6-5.8-42.8 0-23 7.5-42.6 22.5-58.8-7-17.3-6.5-36.7 2-58.3 5.4-1.6 13.6-.3 24.5 4 10.8 4.3 18.8 8 23.8 11s9 5.6 12.2 7.7c17.7-5 36-7.4 54.8-7.4s37 2.5 54.8 7.4l11-6.8c7.4-4.7 16-9 26.2-12.7 10-3.8 17.8-5 23-3 8.7 21.4 9.5 40.8 2.4 58 15 16.3 22.6 36 22.6 59 0 16-2 30.4-6 43-3.8 12.3-8.8 22.3-15 30-6.2 7.4-14 13.7-23 18.8-9.4 5.3-18.3 9-27 11.3-8.6 2.3-18.4 4-29.2 5 10 8.7 14.8 22.2 14.8 40.7v60.2c0 3.4 1.2 6.3 3.6 8.6 2.4 2.2 6 3 11.3 2 44-14.7 80-41 108-79.3 28-38 41.8-81 41.8-129 0-39.6-9.8-76.3-29.4-110z"/></svg>
+							gonrial
+							</a>
+						</p>
+					</div>
+				</section>		
+			</div>
+		</div>
+
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+
+			    // Parallax background image
+			    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+			    // Parallax background size
+			    // parallaxBackgroundSize: '2100px 900px', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+			    // Number of pixels to move the parallax background per slide
+			    // - Calculated automatically unless specified
+			    // - Set to 0 to disable movement along an axis
+			    // parallaxBackgroundHorizontal: 200,
+			    // parallaxBackgroundVertical: 50,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+	</body>
+</html>
